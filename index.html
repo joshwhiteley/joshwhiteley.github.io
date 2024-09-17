@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Bacteria Treatment Game</title>
+    <title>Aldridge Lab Bacteria Treatment Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,11 +52,26 @@
         #side-effects-bar-fill {
             background-color: #ff3300;
         }
+        #logo-container {
+            margin-top: 30px;
+        }
+        #logo-container img {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-    <h1>Enhanced Bacteria Treatment Game</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <!-- Logo Section -->
+    <div id="logo-container">
+        <a href="https://sites.tufts.edu/aldridgelab/" target="_blank">
+            <img src="logo.png" alt="logo">
+        </a>
+    </div>
+
+    <h1>Bacteria Treatment Game</h1>
+    <canvas id="gameCanvas" width="300" height="300"></canvas>
     <div id="controls">
         <button id="treatment1">Treatment 1</button>
         <button id="treatment2">Treatment 2</button>
@@ -199,54 +214,63 @@
         function applyTreatment(treatmentIndex) {
             const currentTime = Date.now();
             const currentTreatment = treatments[treatmentIndex];
-            
+    
             // Apply immediate kill effect
             killProbability = currentTreatment.kill;
-
-            // Increase resistance
-            resistance = Math.min(1, resistance + RESISTANCE_INCREASE);
-            resistanceBarFill.style.width = `${resistance * 100}%`;
-            resistanceValue.textContent = `${(resistance * 100).toFixed(1)}%`;
-
-            // Check for side effects
-            if (lastTreatmentTime && (currentTime - lastTreatmentTime) < SIDE_EFFECTS_THRESHOLD) {
-                sideEffects = Math.min(1, sideEffects + SIDE_EFFECTS_INCREASE);
-                sideEffectsBarFill.style.width = `${sideEffects * 100}%`;
-                sideEffectsValue.textContent = `${(sideEffects * 100).toFixed(1)}%`;
-            }
-
+    
+            // Calculate the default resistance increase
+            let resistanceIncrease = RESISTANCE_INCREASE;
+    
             // Check for interaction with the last treatment
             if (lastTreatment && (currentTime - lastTreatmentTime) <= 2000) {
                 const interactionKey = [lastTreatment.name, currentTreatment.name].sort().join('+');
                 const interactionEffect = interactions[interactionKey] || 1;
-                
+    
                 const combinedEffect = currentTreatment.effect * lastTreatment.effect * interactionEffect * (1 - resistance);
-                
+    
                 // Add new effect
                 activeEffects.push({
                     effect: combinedEffect,
                     endTime: currentTime + 10000 // 10 seconds duration
                 });
-                
+    
                 const fic = interactionEffect;
                 ficIndicator.textContent = `FIC: ${fic.toFixed(2)} - ${fic < 1 ? 'Synergy' : fic > 1 ? 'Antagonism' : 'Additive'}`;
                 ficIndicator.style.backgroundColor = fic < 1 ? '#90EE90' : fic > 1 ? '#FFA07A' : '#F0F0F0';
                 ficIndicator.style.color = fic < 1 ? 'green' : fic > 1 ? 'red' : 'black';
+    
+                // If FIC < 1 (synergy), increase resistance rate
+                if (fic < 1) {
+                    resistanceIncrease += 5 * RESISTANCE_INCREASE;
+                }
+    
             } else {
                 // Add new effect without interaction
                 activeEffects.push({
                     effect: currentTreatment.effect * (1 - resistance),
                     endTime: currentTime + 10000 // 10 seconds duration
                 });
-                
+    
                 ficIndicator.textContent = 'FIC: N/A';
                 ficIndicator.style.backgroundColor = '#F0F0F0';
                 ficIndicator.style.color = 'black';
             }
-            
+    
+            // Increase resistance, taking into account synergistic interaction
+            resistance = Math.min(1, resistance + resistanceIncrease);
+            resistanceBarFill.style.width = `${resistance * 100}%`;
+            resistanceValue.textContent = `${(resistance * 100).toFixed(1)}%`;
+    
+            // Check for side effects
+            if (lastTreatmentTime && (currentTime - lastTreatmentTime) < SIDE_EFFECTS_THRESHOLD) {
+                sideEffects = Math.min(1, sideEffects + SIDE_EFFECTS_INCREASE);
+                sideEffectsBarFill.style.width = `${sideEffects * 100}%`;
+                sideEffectsValue.textContent = `${(sideEffects * 100).toFixed(1)}%`;
+            }
+    
             lastTreatment = currentTreatment;
             lastTreatmentTime = currentTime;
-
+    
             // Update treatmentEffect
             updateTreatmentEffect();
         }
