@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacteria Treatment Game - Multiple Populations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-around;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid #000;
+            background-color: #fff;
+        }
+        #controls {
+            margin-top: 10px;
+        }
+        button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+        .status-bar {
+            width: 200px;
+            height: 20px;
+            background-color: #ddd;
+            margin-top: 10px;
+        }
+        .status-bar-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        #resistance-bar-fill {
+            background-color: #ff9900;
+        }
+        #side-effects-bar-fill {
+            background-color: #ff3300;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Game for Intracellular Population -->
+    <div class="game-container" id="intracellular-game">
+        <h2>Intracellular Population</h2>
+        <canvas id="intracellularCanvas" width="300" height="300"></canvas>
+        <div id="controls">
+            <button id="intracellular-treatment1">Treatment 1</button>
+            <button id="intracellular-treatment2">Treatment 2</button>
+            <button id="intracellular-treatment3">Treatment 3</button>
+            <button id="intracellular-treatment4">Treatment 4</button>
+            <button id="intracellular-treatment5">Treatment 5</button>
+            <button id="intracellular-treatment6">Treatment 6</button>
+        </div>
+        <p>Bacteria Count: <span id="intracellular-bacteriaCount">0</span></p>
+        <p>Replication Rate: <span id="intracellular-replication-rate">0</span></p>
+        <p>Treatment Effect: <span id="intracellular-treatmentEffect">1.0000</span></p>
+        <p id="intracellular-fic-indicator">FIC: N/A</p>
+        <div class="status-bar">
+            <div id="intracellular-resistance-bar-fill" class="status-bar-fill"></div>
+        </div>
+        <p>Resistance: <span id="intracellular-resistance-value">0%</span></p>
+        <div class="status-bar">
+            <div id="intracellular-side-effects-bar-fill" class="status-bar-fill"></div>
+        </div>
+        <p>Side Effects: <span id="intracellular-side-effects-value">0%</span></p>
+    </div>
+
+    <!-- Game for Caseous Population -->
+    <div class="game-container" id="caseous-game">
+        <h2>Caseous Population</h2>
+        <canvas id="caseousCanvas" width="300" height="300"></canvas>
+        <div id="controls">
+            <button id="caseous-treatment1">Treatment 1</button>
+            <button id="caseous-treatment2">Treatment 2</button>
+            <button id="caseous-treatment3">Treatment 3</button>
+            <button id="caseous-treatment4">Treatment 4</button>
+            <button id="caseous-treatment5">Treatment 5</button>
+            <button id="caseous-treatment6">Treatment 6</button>
+        </div>
+        <p>Bacteria Count: <span id="caseous-bacteriaCount">0</span></p>
+        <p>Replication Rate: <span id="caseous-replication-rate">0</span></p>
+        <p>Treatment Effect: <span id="caseous-treatmentEffect">1.0000</span></p>
+        <p id="caseous-fic-indicator">FIC: N/A</p>
+        <div class="status-bar">
+            <div id="caseous-resistance-bar-fill" class="status-bar-fill"></div>
+        </div>
+        <p>Resistance: <span id="caseous-resistance-value">0%</span></p>
+        <div class="status-bar">
+            <div id="caseous-side-effects-bar-fill" class="status-bar-fill"></div>
+        </div>
+        <p>Side Effects: <span id="caseous-side-effects-value">0%</span></p>
+    </div>
+
+    <!-- Game for In Vitro Population -->
+    <div class="game-container" id="invitro-game">
+        <h2>In Vitro Population</h2>
+        <canvas id="invitroCanvas" width="300" height="300"></canvas>
+        <div id="controls">
+            <button id="invitro-treatment1">Treatment 1</button>
+            <button id="invitro-treatment2">Treatment 2</button>
+            <button id="invitro-treatment3">Treatment 3</button>
+            <button id="invitro-treatment4">Treatment 4</button>
+            <button id="invitro-treatment5">Treatment 5</button>
+            <button id="invitro-treatment6">Treatment 6</button>
+        </div>
+        <p>Bacteria Count: <span id="invitro-bacteriaCount">0</span></p>
+        <p>Replication Rate: <span id="invitro-replication-rate">0</span></p>
+        <p>Treatment Effect: <span id="invitro-treatmentEffect">1.0000</span></p>
+        <p id="invitro-fic-indicator">FIC: N/A</p>
+        <div class="status-bar">
+            <div id="invitro-resistance-bar-fill" class="status-bar-fill"></div>
+        </div>
+        <p>Resistance: <span id="invitro-resistance-value">0%</span></p>
+        <div class="status-bar">
+            <div id="invitro-side-effects-bar-fill" class="status-bar-fill"></div>
+        </div>
+        <p>Side Effects: <span id="invitro-side-effects-value">0%</span></p>
+    </div>
+
+    <script>
+        class Game {
+            constructor(canvasId, bacteriaCountId, replicationRateId, treatmentEffectId, ficIndicatorId, resistanceBarFillId, resistanceValueId, sideEffectsBarFillId, sideEffectsValueId, treatments, populationEffect) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.bacteriaCountElement = document.getElementById(bacteriaCountId);
+                this.replicationRateElement = document.getElementById(replicationRateId);
+                this.treatmentEffectElement = document.getElementById(treatmentEffectId);
+                this.ficIndicatorElement = document.getElementById(ficIndicatorId);
+                this.resistanceBarFill = document.getElementById(resistanceBarFillId);
+                this.resistanceValue = document.getElementById(resistanceValueId);
+                this.sideEffectsBarFill = document.getElementById(sideEffectsBarFillId);
+                this.sideEffectsValue = document.getElementById(sideEffectsValueId);
+                
+                this.treatments = treatments;
+                this.populationEffect = populationEffect;
+                this.bacteria = [];
+                this.activeEffects = [];
+                this.resistance = 0;
+                this.sideEffects = 0;
+                this.killProbability = 0;
+                this.treatmentEffect = 1;
+                this.lastTreatment = null;
+                this.lastTreatmentTime = 0;
+                this.gameTime = 0;
+                this.lastReplicationCount = 0;
+
+                this.RESISTANCE_INCREASE = 0.01;
+                this.SIDE_EFFECTS_THRESHOLD = 500;
+                this.SIDE_EFFECTS_INCREASE = 0.05;
+
+                this.init();
+                this.update();
+            }
+
+            createBacterium() {
+                return new Bacterium(this.canvas.width / 2, this.canvas.height / 2);
+            }
+
+            applyTreatment(treatmentIndex) {
+                const currentTime = Date.now();
+                const currentTreatment = this.treatments[treatmentIndex];
+
+                this.killProbability = currentTreatment.kill;
+                let resistanceIncrease = this.RESISTANCE_INCREASE;
+
+                if (this.lastTreatment && (currentTime - this.lastTreatmentTime) <= 2000) {
+                    const interactionKey = [this.lastTreatment.name, currentTreatment.name].sort().join('+');
+                    const interactionEffect = interactions[interactionKey] || 1;
+                    const combinedEffect = currentTreatment.effect * this.lastTreatment.effect * interactionEffect * (1 - this.resistance);
+
+                    this.activeEffects.push({
+                        effect: combinedEffect * this.populationEffect,
+                        endTime: currentTime + 10000
+                    });
+
+                    const fic = interactionEffect;
+                    this.ficIndicatorElement.textContent = `FIC: ${fic.toFixed(2)} - ${fic < 1 ? 'Synergy' : fic > 1 ? 'Antagonism' : 'Additive'}`;
+                    this.ficIndicatorElement.style.backgroundColor = fic < 1 ? '#90EE90' : fic > 1 ? '#FFA07A' : '#F0F0F0';
+
+                    if (fic < 1) {
+                        resistanceIncrease += 5 * this.RESISTANCE_INCREASE;
+                    }
+                } else {
+                    this.activeEffects.push({
+                        effect: currentTreatment.effect * this.populationEffect * (1 - this.resistance),
+                        endTime: currentTime + 10000
+                    });
+
+                    this.ficIndicatorElement.textContent = 'FIC: N/A';
+                }
+
+                this.resistance = Math.min(1, this.resistance + resistanceIncrease);
+                this.resistanceBarFill.style.width = `${this.resistance * 100}%`;
+                this.resistanceValue.textContent = `${(this.resistance * 100).toFixed(1)}%`;
+
+                if (this.lastTreatmentTime && (currentTime - this.lastTreatmentTime) < this.SIDE_EFFECTS_THRESHOLD) {
+                    this.sideEffects = Math.min(1, this.sideEffects + this.SIDE_EFFECTS_INCREASE);
+                    this.sideEffectsBarFill.style.width = `${this.sideEffects * 100}%`;
+                    this.sideEffectsValue.textContent = `${(this.sideEffects * 100).toFixed(1)}%`;
+                }
+
+                this.lastTreatment = currentTreatment;
+                this.lastTreatmentTime = currentTime;
+
+                this.updateTreatmentEffect();
+            }
+
+            updateTreatmentEffect() {
+                const currentTime = Date.now();
+                this.activeEffects = this.activeEffects.filter(effect => effect.endTime > currentTime);
+                if (this.activeEffects.length > 0) {
+                    this.treatmentEffect = this.activeEffects.reduce((acc, effect) => acc * effect.effect, 1);
+                } else {
+                    this.treatmentEffect = 1;
+                    this.killProbability = 0;
+                }
+                this.treatmentEffectElement.textContent = this.treatmentEffect.toFixed(4);
+            }
+
+            update() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.updateTreatmentEffect();
+                let newBacteria = [];
+                this.bacteria = this.bacteria.filter(bacterium => {
+                    if (bacterium.shouldDie(this.killProbability)) return false;
+                    bacterium.move();
+                    bacterium.draw(this.ctx);
+                    const newBacterium = bacterium.divide(this.treatmentEffect);
+                    if (newBacterium) newBacteria.push(newBacterium);
+                    return true;
+                });
+                this.bacteria = this.bacteria.concat(newBacteria);
+                this.bacteriaCountElement.textContent = this.bacteria.length;
+
+                this.gameTime++;
+                if (this.gameTime % 60 === 0) {
+                    const currentReplicationCount = this.bacteria.length;
+                    const replicationRate = currentReplicationCount - this.lastReplicationCount;
+                    this.replicationRateElement.textContent = `${replicationRate}/s`;
+                    this.lastReplicationCount = currentReplicationCount;
+                }
+
+                requestAnimationFrame(() => this.update());
+            }
+
+            init() {
+                this.bacteria = [this.createBacterium()];
+            }
+        }
+
+        class Bacterium {
+            constructor(x, y, resistance = Math.random()) {
+                this.x = x;
+                this.y = y;
+                this.radius = 4;
+                this.resistance = resistance;
+                this.color = this.getColor();
+                this.divisionCounter = 0;
+                this.velocity = { x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 };
+            }
+
+            getColor() {
+                const r = Math.floor(255 * this.resistance);
+                const g = Math.floor(255 * (1 - this.resistance));
+                return `rgb(${r}, ${g}, 0)`;
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            move() {
+                this.velocity.x += (Math.random() - 0.5) * 0.5;
+                this.velocity.y += (Math.random() - 0.5) * 0.5;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                if (this.x - this.radius < 0 || this.x + this.radius > 300) this.velocity.x *= -1;
+                if (this.y - this.radius < 0 || this.y + this.radius > 300) this.velocity.y *= -1;
+            }
+
+            divide(treatmentEffect) {
+                this.divisionCounter += treatmentEffect * Math.pow(1 - this.resistance, 2) * Math.max(0.1, 1 - Math.log(this.x) / 10);
+                if (this.divisionCounter >= 100) {
+                    this.divisionCounter = 0;
+                    return new Bacterium(this.x + (Math.random() - 0.5) * 10, this.y + (Math.random() - 0.5) * 10, Math.min(1, this.resistance + Math.random() * 0.1));
+                }
+                return null;
+            }
+
+            shouldDie(killProbability) {
+                return Math.random() < killProbability * Math.pow(1 - this.resistance, 3);
+            }
+        }
+
+        const treatments = [
+            { name: "Treatment 1", effect: 0.95, kill: 0.002 },
+            { name: "Treatment 2", effect: 0.90, kill: 0.004 },
+            { name: "Treatment 3", effect: 0.85, kill: 0.006 },
+            { name: "Treatment 4", effect: 0.80, kill: 0.008 },
+            { name: "Treatment 5", effect: 0.75, kill: 0.010 },
+            { name: "Treatment 6", effect: 0.70, kill: 0.012 }
+        ];
+
+        const interactions = {
+            "Treatment 1+Treatment 2": 0.8,
+            "Treatment 1+Treatment 3": 1.2,
+            "Treatment 2+Treatment 4": 0.7,
+            "Treatment 3+Treatment 5": 0.9,
+            "Treatment 4+Treatment 6": 1.1,
+            "Treatment 5+Treatment 6": 0.6
+        };
+
+        const intracellularGame = new Game('intracellularCanvas', 'intracellular-bacteriaCount', 'intracellular-replication-rate', 'intracellular-treatmentEffect', 'intracellular-fic-indicator', 'intracellular-resistance-bar-fill', 'intracellular-resistance-value', 'intracellular-side-effects-bar-fill', 'intracellular-side-effects-value', treatments, 0.8);
+        const caseousGame = new Game('caseousCanvas', 'caseous-bacteriaCount', 'caseous-replication-rate', 'caseous-treatmentEffect', 'caseous-fic-indicator', 'caseous-resistance-bar-fill', 'caseous-resistance-value', 'caseous-side-effects-bar-fill', 'caseous-side-effects-value', treatments, 1.0);
+        const invitroGame = new Game('invitroCanvas', 'invitro-bacteriaCount', 'invitro-replication-rate', 'invitro-treatmentEffect', 'invitro-fic-indicator', 'invitro-resistance-bar-fill', 'invitro-resistance-value', 'invitro-side-effects-bar-fill', 'invitro-side-effects-value', treatments, 1.2);
+
+        treatments.forEach((_, i) => {
+            document.getElementById(`intracellular-treatment${i + 1}`).addEventListener('click', () => intracellularGame.applyTreatment(i));
+            document.getElementById(`caseous-treatment${i + 1}`).addEventListener('click', () => caseousGame.applyTreatment(i));
+            document.getElementById(`invitro-treatment${i + 1}`).addEventListener('click', () => invitroGame.applyTreatment(i));
+        });
+
+    </script>
+
+</body>
+</html>
