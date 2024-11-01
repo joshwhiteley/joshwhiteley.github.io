@@ -84,6 +84,97 @@
             margin: 5px 0 0;
             color: #666;
         }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .condition {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .condition-title {
+            width: 100px;
+            font-weight: bold;
+        }
+        
+        .timeline-track {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            padding-bottom: 25px;
+        }
+        
+        .point.constant {
+            background-color: #4CAF50; /* Green for Constant */
+        }
+        
+        .point.terminal {
+            background-color: #FF5733; /* Orange for Terminal */
+        }
+        
+        .point.constant-terminal {
+            background-color: #8A2BE2; /* Purple for ConstantTerminal */
+        }
+        
+        .point {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            transform: translateX(-50%);
+            cursor: default;
+            color: white;
+            font-size: 0.8em;
+            text-align: center;
+            line-height: 20px;
+            background-color: #1e90ff; /* Default blue if no class */
+        }
+        
+        .point::after {
+            content: attr(data-timepoint);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        /* Inline Points for Descriptions */
+        .inline-point {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px; /* Smaller size for inline points */
+            height: 14px;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.75em;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        .inline-point.constant {
+            background-color: #4CAF50; /* Green for Constant */
+        }
+
+        .inline-point.terminal {
+            background-color: #FF5733; /* Orange for Terminal */
+        }
+
+        .inline-point.constant-terminal {
+            background-color: #8A2BE2; /* Purple for ConstantTerminal */
+        }
+
     </style>
 </head>
 <body>
@@ -138,21 +229,170 @@
             <p><b>j</b>: casPK 7H</p>
     </div>
     <!-- Metrics Section -->
-    <div class="section" id="models">
+    <div class="section" id="metrics">
         <h2>metrics</h2>
+        <!-- Potency -->
         <div class="glossary-item">
-    </div>
+            <b>potency</b>
+            <hr class="faint-line">
+            <p><b>AUC<sub>n</sub></b>: normalized area under the dose-response curve up to the <i>n</i> % growth inhibitory concentration [IC<sub>n</sub>]</p>
+            <p><b>E<sub>inf</sub></b>: effect at &infin; drug concentration (maximum achievable effect)</p>
+            <p><b>GR<sub>inf</sub>*</b>: normalized growth inhibition effect at &infin; drug concentration (maximum achievable effect) [partially deprecate]</p>
+            <p><b>GR<sub>max</sub></b>: maximum growth inhibition effect at highest drug concentration (measured maximum effect)</p>
+        </div>
+        <!-- Interactions -->
+        <div class="glossary-item">
+            <b>interactions</b>
+            <hr class="faint-line">
+            <p><b>Bliss independence model</b>: The Bliss independence model assumes a stochastic process in which two drugs elicit their effects independently, and the expected combination effect can be calculated based on the probability of independent events <a href="https://www.sciencedirect.com/science/article/pii/S2472555222073695" target=_blank>[reference]</a></p>
+            <p><b>Loewe additivity model</b>: The Loewe additivity model calculates the expected response as if both drugs are the same. Hence, a slice through the response surface at any chosen effect should show a linear relationship between the doses of the two drugs <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5808155/#B10" target=_blank>[reference]</a></p>
+            <p><b>FIC<sub>n</sub></b>: fractional inhibitory concentration at n% growth inhibition.</p>
+            <p><b>FBC<sub>n</sub></b>: fractional bactericidal concentration at n% growth inhibition.</p>
+            <p><b>Bliss FIC<sub>n</sub></b>: Bliss synergy score for a combination at [IC<sub>n</sub>]</p>
+            <p><b>Loewe FIC<sub>n</sub></b>: Loewe additivity score for a combination at [IC<sub>n</sub>]</p>
+        </div>
+        <div class="glossary-item">
+            <b>other</b>
+            <hr class="faint-line">
+            <p><b>Hill</b>: The estimated Hill slope of a dose response (DR) curve.</p>
+        </div>
+        </div>
+        <!-- Image for Metrics -->
+        <div class="glossary-item">
+            <img src="../metrics.png" alt="Metrics Diagram" style="max-width: 25%; height: auto; display: block; margin: 0 auto; margin-top: 10px;">        
+        </div>
 
+    <div class="section" id="timepoints">
+        <h2>timepoints</h2>
+        <div class="glossary-item">
+            <p><b>C</b>: constant timepoint <span class="inline-point constant">C</span></p>
+            <p><b>T</b>: terminal timepoint<span class="inline-point terminal">T</span></p></p>
+            <p><b>CT</b>: constant-terminal timepoint<span class="inline-point constant-terminal">CT</span></p></p>
+            <div class="faint-line"></div>
+            <div class="line-break"></div>
+            <div class="line-break"></div>
+
+            <div class="timeline">
+                <!-- Butyrate -->
+                <div class="condition">
+                    <div class="condition-title">butyrate</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 20%;">6</div>
+                        <div class="point" data-timepoint="T2" style="left: 40%;">8</div>
+                        <div class="point terminal" data-timepoint="T3" style="left: 60%;">10</div>
+                    </div>
+                </div>
+    
+                <!-- Valerate -->
+                <div class="condition">
+                    <div class="condition-title">valerate</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 30%;">9</div>
+                        <div class="point" data-timepoint="T2" style="left: 60%;">12</div>
+                        <div class="point terminal" data-timepoint="T3" style="left: 90%;">15</div>
+                    </div>
+                </div>
+    
+                <!-- Cholesterol -->
+                <div class="condition">
+                    <div class="condition-title">low chol.</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 20%;">7</div>
+                        <div class="point" data-timepoint="T2" style="left: 40%;">14</div>
+                        <div class="point" data-timepoint="T3" style="left: 60%;">21</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 80%;">28</div>
+                    </div>
+                </div>
+    
+                <!-- HighCholesterol -->
+                <div class="condition">
+                    <div class="condition-title">high chol.</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 20%;">12</div>
+                        <div class="point" data-timepoint="T2" style="left: 40%;">16</div>
+                        <div class="point" data-timepoint="T3" style="left: 60%;">20</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 80%;">24</div>
+                    </div>
+                </div>
+    
+                <!-- Standard -->
+                <div class="condition">
+                    <div class="condition-title">standard</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 17%;">3</div>
+                        <div class="point" data-timepoint="T2" style="left: 34%;">4</div>
+                        <div class="point" data-timepoint="T3" style="left: 50%;">5</div>
+                        <div class="point" data-timepoint="T4" style="left: 67%;">6</div>
+                        <div class="point constant-terminal" data-timepoint="T5" style="left: 83%;">7</div>
+                    </div>
+                </div>
+    
+                <!-- Acidic -->
+                <div class="condition">
+                    <div class="condition-title">acidic</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 20%;">6</div>
+                        <div class="point" data-timepoint="T2" style="left: 40%;">8</div>
+                        <div class="point" data-timepoint="T3" style="left: 60%;">10</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 80%;">12</div>
+                    </div>
+                </div>
+    
+                <!-- Nitrate -->
+                <div class="condition">
+                    <div class="condition-title">dormancy</div>
+                    <div class="timeline-track">
+                        <div class="point constant" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 25%;">2</div>
+                        <div class="point constant-terminal" data-timepoint="T3" style="left: 50%;">4</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 75%;">6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Models Section -->
     <div class="section" id="models">
         <h2>models</h2>
         <div class="glossary-item">
+            <b>computational modeling overview</b>
+            <div class="faint-line"></div>
+            <p>most of the models referred to are <b><a href="https://godatadrive.com/blog/random-forests" target=_blank>Random Forest</a></b> models. typically, what is changing across the different models that we have are one of multiple things:</p>
+            <p>- <b>subconditions</b>: typically, not all subconditions measured are included in a model. an example of a subcondition model would be <i>adv</i>, which would contain <b>a</b>cidic, <b>d</b>ormancy and <b>v</b>alerate features for each combination.</p>
+            <p>- <b>labels</b>: an <i>n</i> label model refers to the amount of labels that are present in the train/test dataset (essentially, the amount of combos we have known information about). the labels themselves (ideally) never change, and are binary variables encoding either better or worse than the <b>reference combo</b>. the DiaMOND team uses 54 and 94 label models currently, 94 being the most updated set, 54 being the set for publication.</p>
+            <p>- <b>reference combo</b>: there are two main combinations that groups doing mouse studies benchmark against, <i>BPaL</i>, and <i>HRZE</i>. most of the <b>RMM</b> work is relative to <i>BPaL</i>, most of the <b>Kramnik</b> work is relative to <i>HRZE</i>. <i>SoC</i> (standard of care) refers to <i>HRZE</i>.</p>
+            <p>- <b>input data</b>: often times, the experimental team will generate data via experiments to fill in "data holes", essentially increasing our coverage of measurements against drug pairs.
+        </div>
+        <div class="glossary-item">
+            <b><i>in vivo</i> models</b>
+            <div class="faint-line"></div>
+            <p><b>relapsing mouse model (RMM)</b>: most of the work the DiaMOND team does is using labels from combinations that have been tested in the relapsing mouse model (typically Balb/c). the primary outcome we look for in these studies are better or worse than the reference combo. <a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>[reference]</a></p>
+            <p><b>kramnik model</b>: more recently, groups have been performing combo performance tests in the kramnik mouse due to its ability to create lesions more true to the human environment. the most common outcome here is better or worse than the reference combo, but there are other data points that are measured on a per experiment basis. <a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>[reference]</a></p>
+            <p><b>marmoset</b>: we've been given a dataset that for a combination study on marmosets done through the NIH. typically, these are PET/CT measurements for individual lesions. <a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>[reference]</a></p>
+            <p><b>human</b>: we've been given a couple of different human datasets for small numbers of combinations through the NIH. notable, one is an EBA study, through NexGEN EBA, but we have recently been given access to a much broader human dataset. typically these are PET/CT measurements for individual lesions. <a href="https://www.newtbdrugs.org/pipeline/trials/nexgen-eba" target="_blank">[reference]</a></p>
+        </div>
     </div>
 
     <!-- Modeling Terms Section -->
     <div class="section" id="modeling-terms">
         <h2>modeling terms</h2>
         <div class="glossary-item">
+        <b>model performance</b>
+        <div class="faint-line"></div>
+        <p><b>AUC (area under the curve)</b>: a metric that measures a model's performance by quantifying its ability to distinguish between positive and negative classes [higher is better]</p>
+        <p><b>F1 score</b>: the harmonic mean of a model's precision and recall [higher is better]</p>
+        <p><b>AUCF1</b>: a simple addition of the AUC score and F1 score of a model [higher is better]</p>
+        <p><b>P(>BPaL)</b>: the probability (via a classifier) of a specific combination being better than <i>BPaL</i> [higher is better*]</p>
+        <p><b>P(>SoC)</b>: the probability (via a classifier) of a specific combination being better than the Standard of Care, <i>HRZE</i> [higher is better]</p>
+        <p><b>confidence intervals</b>: statistically calculated confidence intervals of predictions done at some &alpha;%, typically via infinitesimal jackknifing</p>
+        <p><b>(infinitesimal) jackknifing</b>: technique to measure variability of predictions from a random forest classifier <a href="https://www.jmlr.org/papers/volume15/wager14a/wager14a.pdf" target=_blank>[reference]</a></p>
     </div>
 
 
