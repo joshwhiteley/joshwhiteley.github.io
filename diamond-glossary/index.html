@@ -245,8 +245,8 @@
         <div class="glossary-item">
             <b>interactions</b>
             <hr class="faint-line">
-            <p><b>Bliss independence model</b>: The Bliss independence model assumes a stochastic process in which two drugs elicit their effects independently, and the expected combination effect can be calculated based on the probability of independent events <a href="https://www.sciencedirect.com/science/article/pii/S2472555222073695" target=_blank>[reference]</a></p>
-            <p><b>Loewe additivity model</b>: The Loewe additivity model calculates the expected response as if both drugs are the same. Hence, a slice through the response surface at any chosen effect should show a linear relationship between the doses of the two drugs <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5808155/#B10" target=_blank>[reference]</a></p>
+            <p><b><a href="https://www.sciencedirect.com/science/article/pii/S2472555222073695" target=_blank>Bliss independence model</b></a>: The Bliss independence model assumes a stochastic process in which two drugs elicit their effects independently, and the expected combination effect can be calculated based on the probability of independent events</p>
+            <p><b><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5808155/#B10" target=_blank>Loewe additivity model</b></a>: The Loewe additivity model calculates the expected response as if both drugs are the same. Hence, a slice through the response surface at any chosen effect should show a linear relationship between the doses of the two drugs</p>
             <p><b>FIC<sub>n</sub></b>: fractional inhibitory concentration at n% growth inhibition.</p>
             <p><b>FBC<sub>n</sub></b>: fractional bactericidal concentration at n% growth inhibition.</p>
             <p><b>Bliss FIC<sub>n</sub></b>: Bliss synergy score for a combination at [IC<sub>n</sub>]</p>
@@ -257,6 +257,7 @@
             <hr class="faint-line">
             <p><b>Hill</b>: The estimated Hill slope of a dose response (DR) curve.</p>
         </div>
+        
         </div>
         <!-- Image for Metrics -->
         <div class="glossary-item">
@@ -375,10 +376,10 @@
         <div class="glossary-item">
             <b><i>in vivo</i> models</b>
             <div class="faint-line"></div>
-            <p><b>relapsing mouse model (RMM)</b>: most of the work the DiaMOND team does is using labels from combinations that have been tested in the relapsing mouse model (typically Balb/c). the primary outcome we look for in these studies are better or worse than the reference combo. <a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>[reference]</a></p>
-            <p><b>kramnik model</b>: more recently, groups have been performing combo performance tests in the kramnik mouse due to its ability to create lesions more true to the human environment. the most common outcome here is better or worse than the reference combo, but there are other data points that are measured on a per experiment basis. <a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>[reference]</a></p>
-            <p><b>marmoset</b>: we've been given a dataset that for a combination study on marmosets done through the NIH. typically, these are PET/CT measurements for individual lesions. <a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>[reference]</a></p>
-            <p><b>human</b>: we've been given a couple of different human datasets for small numbers of combinations through the NIH. notable, one is an EBA study, through NexGEN EBA, but we have recently been given access to a much broader human dataset. typically these are PET/CT measurements for individual lesions. <a href="https://www.newtbdrugs.org/pipeline/trials/nexgen-eba" target="_blank">[reference]</a></p>
+            <p><b><a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>relapsing mouse model (RMM)</a></b>: most of the work the DiaMOND team does is using labels from combinations that have been tested in the relapsing mouse model (typically Balb/c). the primary outcome we look for in these studies are better or worse than the reference combo. </p>
+            <p><b><a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>kramnik model</a></b>: more recently, groups have been performing combo performance tests in the kramnik mouse due to its ability to create lesions more true to the human environment. the most common outcome here is better or worse than the reference combo, but there are other data points that are measured on a per experiment basis.</p>
+            <p><b><a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>marmoset</b></a>: we've been given a dataset that for a combination study on marmosets done through the NIH. typically, these are PET/CT measurements for individual lesions.</p>
+            <p><b><a href="https://www.newtbdrugs.org/pipeline/trials/nexgen-eba" target="_blank">human</b></a>: we've been given a couple of different human datasets for small numbers of combinations through the NIH. notable, one is an EBA study, through NexGEN EBA, but we have recently been given access to a much broader human dataset. typically these are PET/CT measurements for individual lesions.</p>
         </div>
     </div>
 
@@ -388,14 +389,22 @@
         <div class="glossary-item">
         <b>model performance</b>
         <div class="faint-line"></div>
-        <p><b>AUC (area under the curve)</b>: a metric that measures a model's performance by quantifying its ability to distinguish between positive and negative classes [higher is better]</p>
-        <p><b>F1 score</b>: the harmonic mean of a model's precision and recall [higher is better]</p>
-        <p><b>AUCF1</b>: a simple addition of the AUC score and F1 score of a model [higher is better]</p>
-        <p><b>P(>BPaL)</b>: the probability (via a classifier) of a specific combination being better than <i>BPaL</i> [higher is better*]</p>
-        <p><b>P(>SoC)</b>: the probability (via a classifier) of a specific combination being better than the Standard of Care, <i>HRZE</i> [higher is better]</p>
-        <p><b>confidence intervals</b>: statistically calculated confidence intervals of predictions done at some &alpha;%, typically via infinitesimal jackknifing</p>
-        <p><b>(infinitesimal) jackknifing</b>: technique to measure variability of predictions from a random forest classifier <a href="https://www.jmlr.org/papers/volume15/wager14a/wager14a.pdf" target=_blank>[reference]</a></p>
-    </div>
+            <p><b>AUC (area under the curve)</b>: a metric that measures a model's performance by quantifying its ability to distinguish between positive and negative classes [higher is better]</p>
+            <p><b>F1 score</b>: the harmonic mean of a model's precision and recall [higher is better]</p>
+            <p><b>AUCF1</b>: a simple addition of the AUC score and F1 score of a model [higher is better]</p>
+            <p><b>P(>BPaL)</b>: the probability (via a classifier) of a specific combination being better than <i>BPaL</i> [higher is better*]</p>
+            <p><b>P(>SoC)</b>: the probability (via a classifier) of a specific combination being better than the Standard of Care, <i>HRZE</i> [higher is better]</p>
+            <p><b>confidence intervals</b>: statistically calculated confidence intervals of predictions done at some &alpha;%, typically via infinitesimal jackknifing</p>
+            <p><b><a href="https://www.jmlr.org/papers/volume15/wager14a/wager14a.pdf" target=_blank>(infinitesimal) jackknifing</b></a>: technique to measure variability of predictions from a random forest classifier</p>
+        </div>
+        <div class ="glossary-item">
+            <b>outcomes</b>
+            <div class="faint-line"></div>
+            <p><b><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9872615/" target="_blank">RS Ratio</b></a>: quantification of intermediates in rRNA synthesis that are typically associated with bacterial activity and the replication rate and serve as a proxy measure for bacterial physiologic activity</b></p>
+            <p><b>T90</b>: time (typically, in months) to reach 90% treatment rate of a model population</p>
+            <p><b>T95</b>: time (typically, in days) to reach 95% treatment rate of a model population</p>
+        </div>
+
 
     <!-- Collaborators Section -->
     <div class="section" id="collaborators">
@@ -407,6 +416,7 @@
             <p><b><a href="https://www.gatesfoundation.org/our-work/programs/global-health/tuberculosis" target="_blank">Gates Foundation</a></b>: Group that provides a significant amount of funding across the TB drug research field (academia/industry).</p>
             <p><b><a href="https://www.gatesmri.org/" target="_blank">Gates MRI</a></b>: Gates Medical Research Institute. Research related branch of the Gates Foundation. Primary research collaborators are Jared Silverman and Khisi Mdluli.</p>
             <p><b><a href="https://pharmacy.ucsf.edu/news/2024/04/savic-receives-nih-funding-establish-tuberculosis-consortium" target="_blank">PReDicTR/UM1</a></b>: UM1 grant that connects DiaMOND platform to numerous other academic groups. Head investigator is Rada Savic.</p>
+            <p><b><a href="https://www.tballiance.org/news/pan-tb-collaboration-advance-investigational-tuberculosis-drug-regimens-phase-2-clinical-trials" target="_blank">PanTB</a></b>: <b><u>P</u></b>roject to <b><u>A</u></b>ccelerate <b><u>N</u></b>ew Treatments for <u><b>Tuberculosis</b></u></p>
         </div>
         <div class="glossary-item">
             <b>other collaborators</b>
