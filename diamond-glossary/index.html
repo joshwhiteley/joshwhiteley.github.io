@@ -1,0 +1,452 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiaMOND Glossary</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            text-align: center;
+            padding: 10px;
+            background-color: hsla(0, 0%, 100%, 0);
+            color: white;
+        }
+        header img {
+            max-width: 250px;
+            margin: 0 auto;
+            display: block;
+        }
+        h1 {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .faint-line {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 10px 0;
+        }
+        .line-break {
+            margin: 10px 0; 
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 1.5em;
+            color: #1e90ff;
+            border-bottom: 2px solid #dad6d6;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .glossary-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .glossary-item h3 {
+            font-size: 1.2em;
+            color: #333;
+            margin: 0;
+        }
+        .glossary-item p {
+            margin: 5px 0 0;
+            color: #666;
+        }
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .condition {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .condition-title {
+            width: 100px;
+            font-weight: bold;
+        }
+        
+        .timeline-track {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            padding-bottom: 25px;
+        }
+        
+        .point.constant {
+            background-color: #4CAF50; /* Green for Constant */
+        }
+        
+        .point.terminal {
+            background-color: #FF5733; /* Orange for Terminal */
+        }
+        
+        .point.constant-terminal {
+            background-color: #8A2BE2; /* Purple for ConstantTerminal */
+        }
+        
+        .point {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            transform: translateX(-50%);
+            cursor: default;
+            color: white;
+            font-size: 0.8em;
+            text-align: center;
+            line-height: 20px;
+            background-color: #1e90ff; /* Default blue if no class */
+        }
+        
+        .point::after {
+            content: attr(data-timepoint);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #666;
+        }
+        /* Inline Points for Descriptions */
+        .inline-point {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px; /* Smaller size for inline points */
+            height: 18px;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.75em;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+        .inline-point.constant {
+            background-color: #4CAF50; /* Green for Constant */
+        }
+        .inline-point.terminal {
+            background-color: #FF5733; /* Orange for Terminal */
+        }
+        .inline-point.constant-terminal {
+            background-color: #8A2BE2; /* Purple for ConstantTerminal */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="../logo.png" alt="AL Logo">
+    <h1></h1>
+</header>
+<div class="container">
+    <!-- Subconditions Section -->
+    <div class="section" id="subconditions">
+        <h2>subconditions</h2>
+        <!-- Traditional -->
+        <div class="glossary-item">
+            <b>traditional</b>
+            <hr class="faint-line">
+            <p><b>a</b>: acidic</p>
+            <p><b>b</b>: butyrate</p>
+            <p><b>d</b>: dormancy, also known as nitrate (<u>nitrate</u> induced dormancy)</p>
+            <p><b>h</b>: high cholesterol</p>
+            <p><b>s</b>: standard</p>
+            <p><b>v</b>: valerate</p>
+            <div class="line-break"></div>
+            <b>deprecated traditional</b>
+            <hr class="faint-line">
+            <p><b><s>i</s></b>: intracellular</p>
+            <p><b><s>c</s></b>: low cholesterol</p>
+            <p><b><s>m</s></b>: macrophage</p>
+        </div>
+        <!-- Simple PK-->
+        <div class="glossary-item">
+            <b>simple PK</b>
+            <hr class="faint-line">
+            <p><b>c</b>: butyrate simple PK [same condition as traditional butyrate but with PK dosing]</p>
+            <p><b>i</b>: dormancy simple PK [same condition as traditional dormancy but with PK dosing]</p>
+            <p><b>w</b>: cholesterol simple PK [same condition as traditional high cholesterol but with PK dosing]</p>
+        </div>
+        <!-- LIDS -->
+        <div class="glossary-item">
+            <b>lipid induced dormancy spectrum (LIDS)</b>
+            <hr class="faint-line">
+            <p><b>5N</b>: acidic normoxic</p>
+            <p><b>7N</b>: neutral normoxic</p>
+            <p><b>7H</b>: neutral hypoxic</p>
+            <hr class="faint-line">
+            <p><b>e</b>: equipotent 5N</p>
+            <p><b>n</b>: eqipotent 7N</p>
+            <p><b>f</b>: equipotent 7H</p>
+            <p><b>g</b>: casPK 5N</p>
+            <p><b>m</b>: casPK 7N</p>
+            <p><b>j</b>: casPK 7H</p>
+    </div>
+    <!-- Metrics Section -->
+    <div class="section" id="metrics">
+        <h2>metrics</h2>
+        <!-- Potency -->
+        <div class="glossary-item">
+            <b>potency</b>
+            <hr class="faint-line">
+            <p><b>AUC<sub>n</sub></b>: normalized area under the dose-response curve up to the <i>n</i> % growth inhibitory concentration [IC<sub>n</sub>]</p>
+            <p><b>E<sub>inf</sub></b>: effect at &infin; drug concentration (maximum achievable effect)</p>
+            <p><b>GR<sub>inf</sub>*</b>: normalized growth inhibition effect at &infin; drug concentration (maximum achievable effect) [partially deprecate]</p>
+            <p><b>GR<sub>max</sub></b>: maximum growth inhibition effect at highest drug concentration (measured maximum effect)</p>
+        </div>
+        <!-- Interactions -->
+        <div class="glossary-item">
+            <b>interactions</b>
+            <hr class="faint-line">
+            <p><b><a href="https://www.sciencedirect.com/science/article/pii/S2472555222073695" target=_blank>Bliss independence model</b></a>: The Bliss independence model assumes a stochastic process in which two drugs elicit their effects independently, and the expected combination effect can be calculated based on the probability of independent events</p>
+            <p><b><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5808155/#B10" target=_blank>Loewe additivity model</b></a>: The Loewe additivity model calculates the expected response as if both drugs are the same. Hence, a slice through the response surface at any chosen effect should show a linear relationship between the doses of the two drugs</p>
+            <p><b>FIC<sub>n</sub></b>: fractional inhibitory concentration at n% growth inhibition.</p>
+            <p><b>FBC<sub>n</sub></b>: fractional bactericidal concentration at n% growth inhibition.</p>
+            <p><b>Bliss FIC<sub>n</sub></b>: Bliss synergy score for a combination at [IC<sub>n</sub>]</p>
+            <p><b>Loewe FIC<sub>n</sub></b>: Loewe additivity score for a combination at [IC<sub>n</sub>]</p>
+        </div>
+        <div class="glossary-item">
+            <b>other</b>
+            <hr class="faint-line">
+            <p><b>Hill</b>: The estimated Hill slope of a dose response (DR) curve.</p>
+        </div>
+        
+        </div>
+        <!-- Image for Metrics -->
+        <div class="glossary-item">
+            <img src="../metrics.png" alt="Metrics Diagram" style="max-width: 25%; height: auto; display: block; margin: 0 auto; margin-top: 10px;">        
+        </div>
+    <div class="section" id="timepoints">
+        <h2>timepoints</h2>
+        <div class="glossary-item">
+            <p><b>C</b>: constant timepoint <span class="inline-point constant">C</span></p>
+            <p><b>T</b>: terminal timepoint<span class="inline-point terminal">T</span></p></p>
+            <p><b>CT</b>: constant-terminal timepoint<span class="inline-point constant-terminal">CT</span></p></p>
+            <div class="faint-line"></div>
+            <div class="line-break"></div>
+            <div class="line-break"></div>
+            <div class="timeline">
+                <!-- Acidic -->
+                <div class="condition">
+                    <div class="condition-title">acidic</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point constant" data-timepoint="T1" style="left: 50%;">6</div>
+                        <div class="point" data-timepoint="T2" style="left: 66%;">8</div>
+                        <div class="point" data-timepoint="T3" style="left: 83%;">10</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 100%;">12</div>
+                    </div>
+                </div>
+                <!-- Butyrate -->
+                <div class="condition">
+                    <div class="condition-title">butyrate</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point constant" data-timepoint="T1" style="left: 60%;">6</div>
+                        <div class="point" data-timepoint="T2" style="left: 80%;">8</div>
+                        <div class="point terminal" data-timepoint="T3" style="left: 100%;">10</div>
+                    </div>
+                </div>
+                <!-- Cholesterol -->
+                <div class="condition">
+                    <div class="condition-title">low chol.</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point constant" data-timepoint="T1" style="left: 25%;">7</div>
+                        <div class="point" data-timepoint="T2" style="left: 50%;">14</div>
+                        <div class="point" data-timepoint="T3" style="left: 75%;">21</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 100%;">28</div>
+                    </div>
+                </div>
+    
+                <!-- HighCholesterol -->
+                <div class="condition">
+                    <div class="condition-title">high chol.</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point constant" data-timepoint="T1" style="left: 50%;">12</div>
+                        <div class="point" data-timepoint="T2" style="left: 66%;">16</div>
+                        <div class="point" data-timepoint="T3" style="left: 83%;">20</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 100%;">24</div>
+                    </div>
+                </div>
+                <!-- Dormancy -->
+                <div class="condition">
+                    <div class="condition-title">dormancy</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point constant" data-timepoint="T1" style="left: 33%;">2</div>
+                        <div class="point" data-timepoint="T3" style="left: 66%;">4</div>
+                        <div class="point terminal" data-timepoint="T4" style="left: 100%;">6</div>
+                    </div>
+                </div>
+                <!-- Standard -->
+                <div class="condition">
+                    <div class="condition-title">standard</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point" data-timepoint="T1" style="left: 42%;">3</div>
+                        <div class="point" data-timepoint="T2" style="left: 57%;">4</div>
+                        <div class="point constant-terminal" data-timepoint="T3" style="left: 71%;">5</div>
+                        <div class="point" data-timepoint="T4" style="left: 85%;">6</div>
+                        <div class="point" data-timepoint="T5" style="left: 100%;">7</div>
+                    </div>
+                </div>
+                <!-- Valerate -->
+                <div class="condition">
+                    <div class="condition-title">valerate</div>
+                    <div class="timeline-track">
+                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point constant" data-timepoint="T1" style="left: 60%;">9</div>
+                        <div class="point" data-timepoint="T2" style="left: 80%;">12</div>
+                        <div class="point terminal" data-timepoint="T3" style="left: 100%;">15</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Models Section -->
+    <div class="section" id="models">
+        <h2>models</h2>
+        <div class="glossary-item">
+            <b>computational modeling overview</b>
+            <div class="faint-line"></div>
+            <p>most of the models referred to are <b><a href="https://godatadrive.com/blog/random-forests" target=_blank>Random Forest</a></b> models. typically, what is changing across the different models that we have are one of multiple things:</p>
+            <p><b>subconditions</b>: typically, not all subconditions measured are included in a model. an example of a subcondition model would be <i>adv</i>, which would contain <b>a</b>cidic, <b>d</b>ormancy and <b>v</b>alerate features for each combination.</p>
+            <p><b>labels</b>: an <i>n</i> label model refers to the amount of labels that are present in the train/test dataset (essentially, the amount of combos we have known information about). the labels themselves (ideally) never change, and are binary variables encoding either better or worse than the <b>reference combo</b>. the DiaMOND team uses 54 and 94 label models currently, 94 being the most updated set, 54 being the set for publication.</p>
+            <p><b>reference combo</b>: there are two main combinations that groups doing mouse studies benchmark against, <i>BPaL</i>, and <i>HRZE</i>. most of the <b>RMM</b> work is relative to <i>BPaL</i>, most of the <b>Kramnik</b> work is relative to <i>HRZE</i>. <i>SoC</i> (standard of care) refers to <i>HRZE</i>.</p>
+            <p><b>input data</b>: often times, the experimental team will generate data via experiments to fill in "data holes", essentially increasing our coverage of measurements against drug pairs.
+        </div>
+        <div class="glossary-item">
+            <b><i>in vivo</i> models</b>
+            <div class="faint-line"></div>
+            <p><b><a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>relapsing mouse model (RMM)</a></b>: most of the work the DiaMOND team does is using labels from combinations that have been tested in the relapsing mouse model (typically Balb/c). the primary outcome we look for in these studies are better or worse than the reference combo. </p>
+            <p><b><a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>kramnik model</a></b>: more recently, groups have been performing combo performance tests in the kramnik mouse due to its ability to create lesions more true to the human environment. the most common outcome here is better or worse than the reference combo, but there are other data points that are measured on a per experiment basis.</p>
+            <p><b><a href="https://www.ema.europa.eu/en/documents/presentation/presentation-topic-1-selection-agents-doses-and-regimens-clinical-study-david-barros_en.pdf" target=_blank>marmoset</b></a>: we've been given a dataset that for a combination study on marmosets done through the NIH. typically, these are PET/CT measurements for individual lesions.</p>
+            <p><b><a href="https://www.newtbdrugs.org/pipeline/trials/nexgen-eba" target="_blank">human</b></a>: we've been given a couple of different human datasets for small numbers of combinations through the NIH. notable, one is an EBA study, through NexGEN EBA, but we have recently been given access to a much broader human dataset. typically these are PET/CT measurements for individual lesions.</p>
+        </div>
+    </div>
+    <!-- Modeling Terms Section -->
+    <div class="section" id="modeling-terms">
+        <h2>modeling terms</h2>
+        <div class="glossary-item">
+        <b>model performance</b>
+        <div class="faint-line"></div>
+            <p><b>AUC (area under the curve)</b>: a metric that measures a model's performance by quantifying its ability to distinguish between positive and negative classes [higher is better]</p>
+            <p><b>F1 score</b>: the harmonic mean of a model's precision and recall [higher is better]</p>
+            <p><b>AUCF1</b>: a simple addition of the AUC score and F1 score of a model [higher is better]</p>
+            <p><b>P(>BPaL)</b>: the probability (via a classifier) of a specific combination being better than <i>BPaL</i> [higher is better*]</p>
+            <p><b>P(>SoC)</b>: the probability (via a classifier) of a specific combination being better than the Standard of Care, <i>HRZE</i> [higher is better]</p>
+            <p><b>confidence intervals</b>: statistically calculated confidence intervals of predictions done at some &alpha;%, typically via infinitesimal jackknifing</p>
+            <p><b><a href="https://www.jmlr.org/papers/volume15/wager14a/wager14a.pdf" target=_blank>(infinitesimal) jackknifing</b></a>: technique to measure variability of predictions from a random forest classifier</p>
+        </div>
+        <div class ="glossary-item">
+            <b>outcomes</b>
+            <div class="faint-line"></div>
+            <p><b><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9872615/" target="_blank">RS Ratio</b></a>: quantification of intermediates in rRNA synthesis that are typically associated with bacterial activity and the replication rate and serve as a proxy measure for bacterial physiologic activity</b></p>
+            <p><b>T90</b>: time (typically, in months) to reach 90% treatment rate of a model population</p>
+            <p><b>T95</b>: time (typically, in days) to reach 95% treatment rate of a model population</p>
+        </div>
+    <!-- Collaborators Section -->
+    <div class="section" id="collaborators">
+        <h2>collaborators</h2>
+        <div class="glossary-item">
+            <b>big consortiums</b>
+            <div class="faint-line"></div>
+            <p><b><a href="https://www.tbdrugaccelerator.org/" target="_blank">TBDA</a></b>: <u><b>TB</b></u> <u><b>D</b></u>rug <u><b>A</b></u>ccelerator - consortium of academic groups and industry groups with a primary goal of developing new drug candidates and shorter regimens.</p>
+            <p><b><a href="https://www.gatesfoundation.org/our-work/programs/global-health/tuberculosis" target="_blank">Gates Foundation</a></b>: Group that provides a significant amount of funding across the TB drug research field (academia/industry).</p>
+            <p><b><a href="https://www.gatesmri.org/" target="_blank">Gates MRI</a></b>: Gates Medical Research Institute. Research related branch of the Gates Foundation. Primary research collaborators are Jared Silverman and Khisi Mdluli.</p>
+            <p><b><a href="https://pharmacy.ucsf.edu/news/2024/04/savic-receives-nih-funding-establish-tuberculosis-consortium" target="_blank">PReDicTR/UM1</a></b>: UM1 grant that connects DiaMOND platform to numerous other academic groups. Head investigator is Rada Savic.</p>
+            <p><b><a href="https://www.tballiance.org/news/pan-tb-collaboration-advance-investigational-tuberculosis-drug-regimens-phase-2-clinical-trials" target="_blank">PanTB</a></b>: <b><u>P</u></b>roject to <b><u>A</u></b>ccelerate <b><u>N</u></b>ew Treatments for <u><b>Tuberculosis</b></u></p>
+        </div>
+        <div class="glossary-item">
+            <b>other collaborators</b>
+            <div class="faint-line"></div>
+            <p><b>Colorado State University (CSU)</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://labs.vetmedbiosci.colostate.edu/robertson/" target="_blank">Gregory Robertson</u></a>: PI of a Colorado State University (CSU) research group that does mouse studies (RS ratio)</p>
+            <div class="line-break"></div>
+            <p><b>Gates MRI</b></p>
+            <div class="faint-line"></div>
+            <p><u>Jared Silverman</u>: Head of Translational Discovery</p>
+            <p><u>Khisi Mdluli</u>: Discovery Project Leader</p>
+            <p><u>Peter Warner</u>: Senior Program Officer</p>
+            <div class="line-break"></div>
+            <p><b>Hackensack Meridian (HMH)</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://hmh-cdi.org/en/research/faculty/jansy-sarathy/research" target="_blank">Jansry Sarathy</u></a>: Caseum related projects</p>
+            <p><u>Véronique (Vero) Dartois</u>: Caseum related proejcts</p>
+            <p><u>Matt Zimmerman</u>: Caseum related projects</p>
+            <div class="line-break"></div>
+            <p><b>Harvard Public Health</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://www.hsph.harvard.edu/rubin-lab/" target="_blank">Eric Rubin</u></a>: PI of HPH research group</p>
+            <div class="line-break"></div>
+            <p><b>Johns Hopkins School of Medicine</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://nuermbergerlab.com/team/" target="_blank">Eric Nuermberger</u></a>: Mouse work -- ultra short course model
+            <div class="line-break"></div>
+            <p><b>NIH</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://www.niaid.nih.gov/research/barry-research-group" target="_blank">Clifton (Clif) Barry</u></a>: Senior Investigator, Chief of TB Research Section</p>
+            <p><u>Laura Via</u>: Staff scientist, Barry group</p>
+            <div class="line-break"></div>
+            <p><b>University of California, San Francisco (UCSF)</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://pharmacy.ucsf.edu/rada-savic" target="_blank">Rada Savic</u></a>: Co-director, UCSF Center for TB, PI of PReDicTR</p>
+            <p><u>Jeff Permot</u>: Executive Assistant to Rada Savic</p>
+            <div class="line-break"></div>
+            <p><b>University of Michigan</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="http://malthus.micro.med.umich.edu/" target="_blank">Denise Kirschner</u></a>: PI of UM TB lab. Research in computational modeling of granulomas</p>
+            <div class="line-break"></div>
+            <p><b>Cornell Medicine</b></p>
+            <div class="faint-line"></div>
+            <p><u><a href="https://rheelab.weill.cornell.edu/team/kyu-rhee-md-phd" target="_blank">Kyu Rhee</u></a>: PI of Cornell research group, metabolism research focus</p>
+        </div>
+        <div class="glossary-item">
+            <b>industry collaborators</b>
+            <div class="faint-line"></div>
+            <p><b>AbbVie</b></p>
+            <p><b>AstraZeneca</b></p>
+            <p><b>Evotec</b></p>
+            <p><b>Glaxosmith-Kline (GSK)</b></p>
+            <p><b>Janssen</b></p>
+            <p><b>Johnson & Johnson (JNJ)</b>
+            <p><b>Lilly</b></p>
+            <p><b>Merck</b></p>
+            <p><b>Sanofi</b></p>
+    
+    </div>
+</body>
+</html>
