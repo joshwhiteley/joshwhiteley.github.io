@@ -1,0 +1,56 @@
+.about-me {
+    font-family: 'Arial, sans-serif';
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .contact-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    justify-content: center;
+  }
+
+  .contact-icons a {
+    color: #333;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .contact-icons a:hover {
+    color: #0072b1; /* LinkedIn blue */
+  }
+
+  .contact-icons a[aria-label="GitHub"]:hover {
+    color: #969393; /* GitHub dark gray */
+  }
+
+  .contact-icons a[aria-label="Email"]:hover {
+    color: #43ae48; /* Email green */
+  }
+
+  
+  .intro {
+    text-align: center;
+  }
+  
+  .me-photo {
+    width: 250px;
+    border-radius: 50%;
+  }
+  
+  h1, h2 {
+    color: #333;
+  }
+  
+  p, li {
+    color: #555;
+  }
+  
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
