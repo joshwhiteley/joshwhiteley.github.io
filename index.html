@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>josh</title>
+    <title>Josh's GitHub Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,43 +11,50 @@
             flex-direction: column;
             align-items: center;
             background-color: #f0f0f0;
+            color: #333;
         }
-        .game-container {
+        .links-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px; 
-        }
-        #gameCanvas {
-            border: 1px solid #000;
-            background-color: #fff;
-        }
-        #controls {
-            margin-top: 10px;
-        }
-        button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            font-size: 16px;
-        }
-        p {
-            margin: 5px 0;
-        }
-        #logo-container {
             margin-top: 30px;
         }
-        #logo-container img {
-            max-width: 150px;
-            display: block;
-            margin: 0 auto;
+        .redirect-link {
+            width: 250px; /* Fixed width for uniformity */
+            height: 80px; /* Fixed height for uniformity */
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 18px;
+            color: #555;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .redirect-link:hover {
+            color: #fff;
+            background-color: #333;
+            border-color: #333;
+        }
+        .redirect-link img {
+            max-width: 200px; /* Increased logo size */
+            margin-right: 12px;
         }
     </style>
 </head>
 <body>
-    <!-- Logo Section -->
-    <div id="logo-container">
-        <a href="https://sites.tufts.edu/aldridgelab/" target="_blank">
-            <img src="logo.png" alt="logo">
-        </a>
+    <!-- Redirect Links Section -->
+    <div class="links-container">
+        <a href="https://joshwhiteley.github.io/about-me" class="redirect-link"><b>about me</b></a>
+        <a href="https://joshwhiteley.github.io/diamond-glossary" class="redirect-link"><b>DiaMOND terms</b></a>
+        <a href="https://github.com/joshwhiteley" class="redirect-link"><b>my github</b></a>
+        <a href="https://sites.tufts.edu/aldridgelab/" target="_blank" class="redirect-link">
+            <img src="logo.png" alt="Aldridge Lab Logo"></a>
+
     </div>
 </body>
+</html>
