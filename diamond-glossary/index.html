@@ -15,7 +15,6 @@
             padding: 0;
         }
         
-
         header {
             text-align: center;
             padding: 10px;
@@ -124,6 +123,14 @@
             background-color: #8A2BE2; /* Purple for ConstantTerminal */
         }
         
+        .point.deprecated {
+            background-color: #7e7878; /* Grey for deprecated */
+        }
+
+        .point.initial {
+            background-color: #8fa9f2; /* Blurple for initial */
+        }
+
         .point {
             display: inline-block;
             width: 20px;
@@ -176,6 +183,42 @@
             background-color: #8A2BE2; /* Purple for ConstantTerminal */
         }
 
+        .inline-point.deprecated {
+            background-color: #7e7878; /* Grey for deprecated */
+        }
+
+        .inline-point.initial {
+            background-color: #8fa9f2; /* Yellow for initial */
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 5px;
+            padding: 5px;   
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position the tooltip above the text */
+            left: 20%;
+            transform: translateX(-50%);
+            opacity: 10;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 100;
+        }        
+
     </style>
 </head>
 <body>
@@ -193,7 +236,9 @@
         <div class="glossary-item">
             <b>traditional</b>
             <hr class="faint-line">
-            <p><b>a</b>: acidic</p>
+            <div class="tooltip"><b>a</b>: acidic
+                <span class="tooltip-text">An acidic environment with a pH level below neutral.</span>
+            </div>
             <p><b>b</b>: butyrate</p>
             <p><b>d</b>: dormancy, also known as nitrate (<u>nitrate</u> induced dormancy)</p>
             <p><b>h</b>: high cholesterol</p>
@@ -268,8 +313,10 @@
         <h2>timepoints</h2>
         <div class="glossary-item">
             <p><b>C</b>: constant timepoint <span class="inline-point constant">C</span></p>
-            <p><b>T</b>: terminal timepoint<span class="inline-point terminal">T</span></p></p>
-            <p><b>CT</b>: constant-terminal timepoint<span class="inline-point constant-terminal">CT</span></p></p>
+            <p><b>T</b>: terminal timepoint<span class="inline-point terminal">T</span></p>
+            <p><b>CT</b>: constant-terminal timepoint<span class="inline-point constant-terminal">CT</span></p>
+            <p><b>dep</b>: deprecated (not measured) <span class="inline-point deprecated">dep</span></p>
+            <p><b>I</b>: initial (not used for calculations) <span class="inline-point initial">I</span></p>
             <div class="faint-line"></div>
             <div class="line-break"></div>
             <div class="line-break"></div>
@@ -280,10 +327,10 @@
                 <div class="condition">
                     <div class="condition-title">acidic</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
                         <div class="point constant" data-timepoint="T1" style="left: 50%;">6</div>
-                        <div class="point" data-timepoint="T2" style="left: 66%;">8</div>
-                        <div class="point" data-timepoint="T3" style="left: 83%;">10</div>
+                        <div class="point deprecated" data-timepoint="T2" style="left: 66%;">8</div>
+                        <div class="point deprecated" data-timepoint="T3" style="left: 83%;">10</div>
                         <div class="point terminal" data-timepoint="T4" style="left: 100%;">12</div>
                     </div>
                 </div>
@@ -292,9 +339,9 @@
                 <div class="condition">
                     <div class="condition-title">butyrate</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
                         <div class="point constant" data-timepoint="T1" style="left: 60%;">6</div>
-                        <div class="point" data-timepoint="T2" style="left: 80%;">8</div>
+                        <div class="point deprecated" data-timepoint="T2" style="left: 80%;">8</div>
                         <div class="point terminal" data-timepoint="T3" style="left: 100%;">10</div>
                     </div>
                 </div>
@@ -303,10 +350,10 @@
                 <div class="condition">
                     <div class="condition-title">low chol.</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
                         <div class="point constant" data-timepoint="T1" style="left: 25%;">7</div>
-                        <div class="point" data-timepoint="T2" style="left: 50%;">14</div>
-                        <div class="point" data-timepoint="T3" style="left: 75%;">21</div>
+                        <div class="point deprecated" data-timepoint="T2" style="left: 50%;">14</div>
+                        <div class="point deprecated" data-timepoint="T3" style="left: 75%;">21</div>
                         <div class="point terminal" data-timepoint="T4" style="left: 100%;">28</div>
                     </div>
                 </div>
@@ -315,10 +362,10 @@
                 <div class="condition">
                     <div class="condition-title">high chol.</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
                         <div class="point constant" data-timepoint="T1" style="left: 50%;">12</div>
-                        <div class="point" data-timepoint="T2" style="left: 66%;">16</div>
-                        <div class="point" data-timepoint="T3" style="left: 83%;">20</div>
+                        <div class="point deprecated" data-timepoint="T2" style="left: 66%;">16</div>
+                        <div class="point deprecated" data-timepoint="T3" style="left: 83%;">20</div>
                         <div class="point terminal" data-timepoint="T4" style="left: 100%;">24</div>
                     </div>
                 </div>
@@ -327,9 +374,9 @@
                 <div class="condition">
                     <div class="condition-title">dormancy</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
                         <div class="point constant" data-timepoint="T1" style="left: 33%;">2</div>
-                        <div class="point" data-timepoint="T3" style="left: 66%;">4</div>
+                        <div class="point deprecated" data-timepoint="T3" style="left: 66%;">4</div>
                         <div class="point terminal" data-timepoint="T4" style="left: 100%;">6</div>
                     </div>
                 </div>
@@ -338,12 +385,12 @@
                 <div class="condition">
                     <div class="condition-title">standard</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
-                        <div class="point" data-timepoint="T1" style="left: 42%;">3</div>
-                        <div class="point" data-timepoint="T2" style="left: 57%;">4</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point deprecated" data-timepoint="T1" style="left: 42%;">3</div>
+                        <div class="point deprecated" data-timepoint="T2" style="left: 57%;">4</div>
                         <div class="point constant-terminal" data-timepoint="T3" style="left: 71%;">5</div>
-                        <div class="point" data-timepoint="T4" style="left: 85%;">6</div>
-                        <div class="point" data-timepoint="T5" style="left: 100%;">7</div>
+                        <div class="point deprecated" data-timepoint="T4" style="left: 85%;">6</div>
+                        <div class="point deprecated" data-timepoint="T5" style="left: 100%;">7</div>
                     </div>
                 </div>
 
@@ -351,9 +398,9 @@
                 <div class="condition">
                     <div class="condition-title">valerate</div>
                     <div class="timeline-track">
-                        <div class="point" data-timepoint="T0" style="left: 0%;">0</div>
+                        <div class="point initial" data-timepoint="T0" style="left: 0%;">0</div>
                         <div class="point constant" data-timepoint="T1" style="left: 60%;">9</div>
-                        <div class="point" data-timepoint="T2" style="left: 80%;">12</div>
+                        <div class="point deprecated" data-timepoint="T2" style="left: 80%;">12</div>
                         <div class="point terminal" data-timepoint="T3" style="left: 100%;">15</div>
                     </div>
                 </div>
